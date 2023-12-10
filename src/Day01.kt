@@ -61,11 +61,11 @@ private fun getCallibrationValuePart1(row: String): Int =
     row.first { it.isDigit() }.digitToInt() * 10 + row.last { it.isDigit() }.digitToInt()
 
 private fun getCallibrationValuePart2(row: String): Int {
+    val digitsHolder = StringBuilder()
     val needToCheckForSubstrings = row.length >= 3
     val result: Int = if (!needToCheckForSubstrings) {
         getCallibrationValuePart1(row)
     } else {
-        val digitsHolder = StringBuilder()
         row.forEachIndexed { index, char ->
             if (char.isDigit()) {
                 digitsHolder.append(char)
@@ -77,7 +77,10 @@ private fun getCallibrationValuePart2(row: String): Int {
                 }
             }
         }
-        digitsHolder.first().digitToInt() * 10 + digitsHolder.last().digitToInt()
+
+        val r = digitsHolder.first().digitToInt() * 10 + digitsHolder.last().digitToInt()
+        digitsHolder.clear()
+        r
     }
     return result
 }
